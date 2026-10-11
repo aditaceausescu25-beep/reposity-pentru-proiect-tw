@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Marketplace Local - Donare și Schimb</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <!-- Bara de navigare de sus -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <span class="nav-logo">Marketplace Local</span>
+            <div class="nav-links">
+                <a href="#adauga">Adaugă anunț nou</a>
+                <a href="#catalog">Vizualizează anunțurile existente</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Antetul aplicației -->
+    <header>
+        <h1>Marketplace Local</h1>
+        <p>Găsește, donează sau schimbă obiecte utile în comunitatea ta.</p>
+        <div class="counter">5 anunțuri active în zonă</div>
+    </header>
+
+    <!-- Conținutul principal -->
+    <main class="container">
+        
+        <!-- Panoul 1: Formularul de adăugare anunț (cu ID pentru ancora de sus) -->
+        <section class="panel-form" id="adauga">
+            <h2>Adaugă un anunț nou</h2>
+            <form>
+                <div class="form-group">
+                    <label for="object-title">Titlu anunț</label>
+                    <input type="text" id="object-title" placeholder="Ex: Bicicletă, Set oale..." required>
+                </div>
+
+                <div class="form-group">
+                    <label for="object-price">Preț (RON) / Status</label>
+                    <input type="text" id="object-price" placeholder="Ex: 0 (Donație) sau 50 RON">
+                </div>
+
+                <div class="form-group">
+                    <label for="object-type">Tip operațiune</label>
+                    <select id="object-type">
+                        <option value="Donatie">Donație (Gratuit)</option>
+                        <option value="Schimb">Schimb</option>
+                        <option value="Vanzare">Vânzare</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="object-image">URL Imagine</label>
+                    <input type="url" id="object-image" placeholder="https://exemplu.ro/imagine.jpg">
+                </div>
+
+                <button type="submit">Publică Anunțul</button>
+            </form>
+        </section>
+
+        <!-- Panoul 2: Grid-ul de anunțuri (cu ID pentru ancora de sus) -->
+        <section class="panel-catalog" id="catalog">
+            <h2>Anunțuri recente</h2>
+            <div class="ads-grid">
+                
+                <!-- 1. Bicicletă -->
+                <a href="detalii.html" class="ad-card">
+                    <div class="ad-image-container">
+                        <img src="https://images.unsplash.com/photo-1576435728678-68d0fbf94e91?auto=format&fit=crop&w=500&q=80" alt="Bicicletă copii">
+                        <span class="badge donatie">Donație</span>
+                    </div>
+                    <div class="ad-content">
+                        <h3 class="ad-title">Bicicletă pentru copii</h3>
+                        <p class="ad-price">Gratuit</p>
+                        <span class="status active">Disponibil</span>
+                    </div>
+                </a>
+
+                <!-- 2. Culegere (Rezervat) -->
+                <a href="detalii.html" class="ad-card done">
+                    <div class="ad-image-container">
+                        <img src="https://images.unsplash.com/photo-1532012197267-da84d127e765?auto=format&fit=crop&w=500&q=80" alt="Culegere mate">
+                        <span class="badge schimb">Schimb</span>
+                    </div>
+                    <div class="ad-content">
+                        <h3 class="ad-title">Culegere mate clasa a X-a</h3>
+                        <p class="ad-price">La schimb</p>
+                        <span class="status reserved">Rezervat</span>
+                    </div>
+                </a>
+
+                <!-- 3. Monitor -->
+                <a href="detalii.html" class="ad-card">
+                    <div class="ad-image-container">
+                        <img src="https://images.unsplash.com/photo-1527443224154-c4a3942d3acf?auto=format&fit=crop&w=500&q=80" alt="Monitor LCD">
+                        <span class="badge donatie">Donație</span>
+                    </div>
+                    <div class="ad-content">
+                        <h3 class="ad-title">Monitor LCD vechi</h3>
+                        <p class="ad-price">Gratuit</p>
+                        <span class="status active">Disponibil</span>
+                    </div>
+                </a>
+
+                <!-- 4. Set oale -->
+                <a href="detalii.html" class="ad-card">
+                    <div class="ad-image-container">
+                        <img src="https://images.unsplash.com/photo-1544816155-12df9643f363?auto=format&fit=crop&w=500&q=80" alt="Set de oale">
+                        <span class="badge donatie">Donație</span>
+                    </div>
+                    <div class="ad-content">
+                        <h3 class="ad-title">Set de oale inox</h3>
+                        <p class="ad-price">Gratuit</p>
+                        <span class="status active">Disponibil</span>
+                    </div>
+                </a>
+
+                <!-- 5. Aspirator -->
+                <a href="detalii.html" class="ad-card">
+                    <div class="ad-image-container">
+                        <img src="https://images.unsplash.com/photo-1558317374-067fb5f30001?auto=format&fit=crop&w=500&q=80" alt="Aspirator">
+                        <span class="badge schimb">Schimb</span>
+                    </div>
+                    <div class="ad-content">
+                        <h3 class="ad-title">Aspirator vertical</h3>
+                        <p class="ad-price">La schimb</p>
+                        <span class="status active">Disponibil</span>
+                    </div>
+                </a>
+
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Subsolul -->
+    <footer>
+        <p>&copy; 2026 Marketplace Local | Proiect Tehnologii Web</p>
+    </footer>
+
+</body>
+</html>
