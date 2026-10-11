@@ -41,13 +41,26 @@ Aceste 3 elemente sunt folosite pentru testarea interfeței și a funcționalit�
 ## Tabel de Verificare - Etapa 1 (Mockup HTML & CSS)
 
 
-| ID Regulă | Cerință Etapa 1 | Permalink Cod GitHub |
-| :--- | :--- | :--- |
-| **S1-R1** | Structura semantică HTML5 (header, nav, main, section, footer) | [Link cod index.html](#) |
-| **S1-R2** | Folosirea variabilelor CSS în `:root` și suport pentru temă întunecată | [Link cod style.css](#) |
-| **S1-R3** | Modelul cutiei resetat corect (`box-sizing: border-box`) | [Link cod style.css](#) |
-| **S1-R4** | Layout principal realizat cu CSS Grid | [Link cod style.css](#) |
-| **S1-R5** | Aranjarea cardurilor din catalog folosind Flexbox | [Link cod style.css](#) |
-| **S1-R6** | Design responsive pentru ecrane înguste cu `@media (max-width)` | [Link cod style.css](#) |
-| **S1-R7** | Cele 3 elemente de test prezente, unul marcat `done` (rezervat) | [Link cod index.html](#) |
-| **S1-R8** | Jurnalul AI completat în folderul `ai-log/etapa-01.md` | [Link jurnal AI](#) |
+| **S1-R1** | Structura semantică HTML5 (header, nav, main, section, footer) | [Link cod index.html](index.html) |
+| **S1-R2** | Folosirea variabilelor CSS în `:root` și suport pentru temă întunecată | [Link cod style.css](style.css) |
+| **S1-R3** | Modelul cutiei resetat corect (`box-sizing: border-box`) | [Link cod style.css](style.css) |
+| **S1-R4** | Layout principal realizat cu CSS Grid | [Link cod style.css](style.css) |
+| **S1-R5** | Aranjarea cardurilor din catalog folosind Flexbox | [Link cod style.css](style.css) |
+| **S1-R6** | Design responsive pentru ecrane înguste cu `@media (max-width)` | [Link cod style.css](style.css) |
+| **S1-R7** | Cele 3 elemente de test prezente, unul marcat `done` (rezervat) | [Link cod index.html](index.html) |
+| **S1-R8** | Jurnalul AI completat în folderul `ai-log/etapa-01.md` | [Link jurnal AI](ai-log/etapa-01.md) |
+
+## Stadiu
+- [x] Etapa 1: machetă statică
+- [x] Etapa 2: logica pe date în JavaScript
+- [ ] Etapa 3: proiect Vite și React
+
+## Tabel de verificare - Etapa 2
+
+| S2-R1 | Fișier JS legat, afișează în consolă la încărcare | [index.html](index.html) | deschide pagina, F12 |
+| S2-R2 | 3+ elemente cu id, nume, stare, etichetă | [marketplace.js](marketplace.js) | citește |
+| S2-R3 | listare, numărare, căutare, adăugare, comutare, ștergere | [marketplace.js](marketplace.js) | ieșirea în consolă |
+| S2-R4 | adăugarea respinge numele gol și eticheta invalidă | [marketplace.js](marketplace.js) | ultimele 2 linii din consolă |
+| S2-R5 | array-ul original rămâne neschimbat după adăugare | [marketplace.js](marketplace.js) | linie în consolă |
+| S2-R6 | secțiune README Etapa 2 + jurnal AI | [README.md](README.md), [ai-log/etapa-02.md](ai-log/etapa-02.md) | citește |
+| S2-R7 | commit „Etapa 2” trimis pe GitHub | [Istoric commit-uri](https://github.com/aditaceusescu25-beep/reposity-pentru-proiect-tw/commits/main) | istoricul commit-urilor |
