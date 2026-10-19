@@ -1,3 +1,5 @@
+import ProdusList from "./components/ProdusList.jsx";
+
 const produse = [
     { id: 1, titlu: "Bicicletă pentru copii", gata: false, eticheta: "Donatie" },
     { id: 2, titlu: "Culegere mate clasa a X-a", gata: true, eticheta: "Schimb" },
@@ -20,7 +22,7 @@ export default function App() {
             <main className="container">
                 <section className="panel">
                     <h2>Anunțuri recente</h2>
-                    <pre>{JSON.stringify(produse, null, 2)}</pre>
+                    <ProdusList produse={produse} />
                 </section>
             </main>
         </>
