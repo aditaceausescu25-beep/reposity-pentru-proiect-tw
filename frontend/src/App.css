@@ -1,334 +1,701 @@
-/* ==========================================
-   1. VARIABILE CSS & PALETĂ ELEGANTĂ (LIGHT/DARK)
-   ================================---------- */
 :root {
-    --bg-color: #f7f9f6;
-    --text-color: #2c3e35;
+    --bg-color: #f0f4f8; 
+    --text-color: #102a43;
     --card-bg: #ffffff;
-    --border-color: #e2e8e4;
-    --accent-color: #2f6b4f;
-    --accent-hover: #23523c;
-    --text-muted: #6c7a70;
+    --border-color: #d9e2ec;
+    --accent-color: #6246ea; 
+    --accent-hover: #4b36c4;
+    --text-muted: #627d98;
     
-    --badge-donatie-bg: #e6f4ed;
-    --badge-donatie-color: #137333;
-    --badge-schimb-bg: #fef7e0;
-    --badge-schimb-color: #b06000;
+    --badge-donatie-bg: #e0e8f9;
+    --badge-donatie-color: #3e4685;
+    --badge-schimb-bg: #ffeedc;
+    --badge-schimb-color: #a05e03;
+    --badge-vanzare-bg: #e0f2fe;
+    --badge-vanzare-color: #0369a1;
     
-    --status-active: #137333;
-    --status-reserved: #c5221f;
+    --danger-color: #e12d39;
+    --danger-hover: #b91c27;
     
-    --shadow-soft: 0 10px 25px -5px rgba(47, 107, 79, 0.06), 0 8px 10px -6px rgba(47, 107, 79, 0.04);
-    --shadow-hover: 0 14px 30px -5px rgba(47, 107, 79, 0.12);
+    --shadow-soft: 0 4px 14px rgba(0, 0, 0, 0.05);
+    --shadow-hover: 0 12px 30px rgba(98, 70, 234, 0.15);
 }
 
-/* Suport elegant pentru tema întunecată a sistemului */
 @media (prefers-color-scheme: dark) {
-    :root {
-        --bg-color: #111814;
-        --text-color: #ecfdf5;
-        --card-bg: #1a241f;
-        --border-color: #2d3d35;
-        --accent-color: #34d399;
-        --accent-hover: #6ee7b7;
-        --text-muted: #9ca3af;
+    :root:not([data-theme="light"]) {
+        --bg-color: #0f172a; 
+        --text-color: #f8fafc;
+        --card-bg: #1e293b;
+        --border-color: #334155;
+        --accent-color: #818cf8; 
+        --accent-hover: #6366f1;
+        --text-muted: #94a3b8;
         
-        --badge-donatie-bg: #064e3b;
-        --badge-donatie-color: #6ee7b7;
+        --badge-donatie-bg: #312e81;
+        --badge-donatie-color: #a5b4fc;
         --badge-schimb-bg: #78350f;
         --badge-schimb-color: #fde68a;
+        --badge-vanzare-bg: #0c4a6e;
+        --badge-vanzare-color: #7dd3fc;
         
-        --status-active: #34d399;
-        --status-reserved: #f87171;
+        --danger-color: #f87171;
+        --danger-hover: #ef4444;
         
-        --shadow-soft: 0 10px 25px -5px rgba(0, 0, 0, 0.3);
-        --shadow-hover: 0 14px 30px -5px rgba(0, 0, 0, 0.5);
+        --shadow-soft: 0 8px 20px rgba(0, 0, 0, 0.4);
+        --shadow-hover: 0 12px 30px rgba(129, 140, 248, 0.2);
     }
 }
 
-/* ==========================================
-   2. MODELUL CUTIEI & STILURI GENERALE
-   ================================---------- */
-* {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
+:root[data-theme="dark"] {
+    --bg-color: #0f172a; 
+    --text-color: #f8fafc;
+    --card-bg: #1e293b;
+    --border-color: #334155;
+    --accent-color: #818cf8; 
+    --accent-hover: #6366f1;
+    --text-muted: #94a3b8;
+    --badge-donatie-bg: #312e81;
+    --badge-donatie-color: #a5b4fc;
+    --badge-schimb-bg: #78350f;
+    --badge-schimb-color: #fde68a;
+    --badge-vanzare-bg: #0c4a6e;
+    --badge-vanzare-color: #7dd3fc;
+    --danger-color: #f87171;
+    --danger-hover: #ef4444;
+    --shadow-soft: 0 8px 20px rgba(0, 0, 0, 0.4);
+    --shadow-hover: 0 12px 30px rgba(129, 140, 248, 0.2);
 }
+
+/* 2. STILURI GLOBALE & ANIMAȚII */
+* { box-sizing: border-box; margin: 0; padding: 0; }
 
 body {
-    font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    font-family: system-ui, -apple-system, sans-serif;
     background-color: var(--bg-color);
     color: var(--text-color);
-    line-height: 1.7;
+    line-height: 1.6;
     padding: 40px 20px;
+    transition: background-color 0.4s ease, color 0.4s ease;
 }
 
-/* ==========================================
-   3. ANTETUL ELEGANT
-   ================================---------- */
-header {
+@keyframes slideUpFade {
+    0% { opacity: 0; transform: translateY(10px); }
+    100% { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes pulseGlow {
+    0% { box-shadow: 0 0 0 0 rgba(98, 70, 234, 0.5); }
+    70% { box-shadow: 0 0 0 10px rgba(98, 70, 234, 0); }
+    100% { box-shadow: 0 0 0 0 rgba(0, 0, 0, 0); }
+}
+
+/* 3. ANTET */
+.app-header {
+    position: relative;
     text-align: center;
-    margin-bottom: 45px;
+    margin-bottom: 50px;
 }
 
-header h1 {
-    font-size: 2.6rem;
-    font-weight: 800;
-    letter-spacing: -0.025em;
+.app-header h1 {
+    font-size: 3rem;
+    font-weight: 900;
+    letter-spacing: -0.03em;
     margin-bottom: 10px;
-    background: linear-gradient(135deg, var(--accent-color), var(--text-color));
+    background: linear-gradient(135deg, var(--accent-color), #f43f5e);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
 }
 
-header p {
+.app-header p {
     color: var(--text-muted);
-    font-size: 1.05rem;
-    max-width: 600px;
-    margin: 0 auto 12px auto;
+    font-size: 1.1rem;
+    margin-bottom: 20px;
 }
 
 .counter {
     display: inline-block;
     background-color: var(--card-bg);
-    border: 1px solid var(--border-color);
-    padding: 6px 16px;
-    border-radius: 20px;
-    font-size: 0.9rem;
-    font-weight: 600;
-    color: var(--accent-color);
-    box-shadow: var(--shadow-soft);
-}
-
-/* ==========================================
-   4. LAYOUT PRINCIPAL (GRID & FLEXBOX)
-   ================================---------- */
-.container {
-    display: grid;
-    grid-template-columns: 1fr; /* Modificat la 1 coloană pentru Etapa 3 */
-    gap: 30px;
-    max-width: 1100px;
-    margin: 0 auto;
-}
-
-section {
-    background-color: var(--card-bg);
-    padding: 30px;
-    border-radius: 16px;
-    border: 1px solid var(--border-color);
-    box-shadow: var(--shadow-soft);
-}
-
-section h2 {
-    font-size: 1.25rem;
+    border: 2px solid var(--border-color);
+    padding: 8px 20px;
+    border-radius: 30px;
+    font-size: 0.95rem;
     font-weight: 700;
-    margin-bottom: 24px;
-    letter-spacing: -0.01em;
+    color: var(--text-color);
+    box-shadow: var(--shadow-soft);
 }
 
-/* Formularul modernizat cu Flexbox */
-.form-group {
-    margin-bottom: 20px;
+.theme-toggle {
+    position: absolute;
+    top: 0;
+    right: 0;
+    padding: 10px 18px;
+    border: none;
+    border-radius: 30px;
+    background: var(--accent-color);
+    color: #ffffff;
+    font: inherit;
+    font-weight: 700;
+    cursor: pointer;
+    box-shadow: var(--shadow-soft);
+    transition: all 0.3s ease;
+}
+
+.theme-toggle:hover {
+    background: var(--accent-hover);
+    transform: translateY(-2px);
+    animation: pulseGlow 1.5s infinite;
+}
+
+/* 4. LAYOUT GRILĂ CARDURI */
+.container { max-width: 1100px; margin: 0 auto; }
+
+.ads-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 25px;
+}
+
+/* 5. CARD PRODUSE */
+.object-card {
+    background-color: var(--card-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 20px;
     display: flex;
     flex-direction: column;
-}
-
-.form-group label {
-    margin-bottom: 8px;
-    font-size: 0.85rem;
-    font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
-    color: var(--text-muted);
-}
-
-.form-group input,
-.form-group select {
-    padding: 12px 16px;
-    border: 1.5px solid var(--border-color);
-    border-radius: 10px;
-    background-color: var(--bg-color);
-    color: var(--text-color);
-    font-size: 1rem;
-    transition: all 0.2s ease;
-}
-
-.form-group input:hover,
-.form-group select:hover {
-    border-color: var(--accent-color);
-}
-
-button[type="submit"] {
-    width: 100%;
-    padding: 14px;
-    background-color: var(--accent-color);
-    color: #ffffff;
-    border: none;
-    border-radius: 10px;
-    font-weight: 600;
-    font-size: 1rem;
-    cursor: pointer;
-    transition: all 0.2s ease;
-    box-shadow: 0 4px 12px rgba(47, 107, 79, 0.2);
-}
-
-button[type="submit"]:hover {
-    background-color: var(--accent-hover);
-    transform: translateY(-1px);
-}
-
-/* ==========================================
-   5. LISTA DE OBIECTE & CARDURI RAFINATE
-   ================================---------- */
-.object-list {
-    list-style: none;
-}
-
-.object-item {
-    display: flex;
     justify-content: space-between;
-    align-items: center;
-    padding: 18px 20px;
-    margin-bottom: 14px;
-    background-color: var(--bg-color);
-    border: 1px solid var(--border-color);
-    border-radius: 12px;
-    transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+    box-shadow: var(--shadow-soft);
+    transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    overflow: hidden;
 }
 
-.object-item:hover {
-    transform: translateY(-3px);
+.object-card:hover {
+    transform: translateY(-8px);
     box-shadow: var(--shadow-hover);
     border-color: var(--accent-color);
 }
 
-.object-item.done {
-    opacity: 0.55;
-    text-decoration: line-through;
+.object-card.done {
+    opacity: 0.6;
+    filter: grayscale(80%);
     background-color: transparent;
+    box-shadow: none;
 }
 
-.object-details {
-    display: flex;
-    align-items: center;
-    gap: 14px;
+.object-card.done .object-title { text-decoration: line-through; color: var(--text-muted); }
+
+/* 5.1 IMAGINE CARD */
+.card-image-wrapper {
+    position: relative;
+    width: 100%;
+    height: 200px;
+    cursor: pointer;
+    overflow: hidden;
 }
 
-.object-title {
-    font-weight: 600;
-    font-size: 1.05rem;
+.card-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.4s ease;
+}
+
+.card-image-wrapper:hover .card-image {
+    transform: scale(1.08);
 }
 
 .badge {
-    font-size: 0.7rem;
-    padding: 5px 12px;
+    position: absolute;
+    top: 15px;
+    left: 15px;
+    font-size: 0.75rem;
+    padding: 6px 14px;
     border-radius: 30px;
-    font-weight: 700;
-    text-transform: uppercase;
+    font-weight: 800;
     letter-spacing: 0.05em;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+    text-transform: uppercase;
+}
+.badge.donatie { background-color: var(--badge-donatie-bg); color: var(--badge-donatie-color); }
+.badge.schimb { background-color: var(--badge-schimb-bg); color: var(--badge-schimb-color); }
+.badge.vanzare { background-color: var(--badge-vanzare-bg); color: var(--badge-vanzare-color); }
+
+/* 5.2 CONTINUT CARD */
+.card-body { padding: 20px; flex-grow: 1; }
+
+.card-header-compact {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 15px;
 }
 
-.badge.donatie {
-    background-color: var(--badge-donatie-bg);
-    color: var(--badge-donatie-color);
-}
+.object-title { font-size: 1.25rem; font-weight: 800; color: var(--text-color); line-height: 1.2; margin-bottom: 5px; }
 
-.badge.schimb {
-    background-color: var(--badge-schimb-bg);
-    color: var(--badge-schimb-color);
-}
-
-.status {
-    font-size: 0.85rem;
-    font-weight: 700;
-}
-
-.status.active {
-    color: var(--status-active);
-}
-
-.status.reserved {
-    color: var(--status-reserved);
-}
-
-/* ==========================================
-   6. SUBSOLUL
-   ================================---------- */
-footer {
-    text-align: center;
-    margin-top: 50px;
-    color: var(--text-muted);
+.btn-expand {
+    background: none;
+    border: none;
+    color: var(--accent-color);
     font-size: 0.9rem;
+    font-weight: 700;
+    cursor: pointer;
+    padding: 5px 0;
+}
+.btn-expand:hover { text-decoration: underline; }
+
+.expanded-content {
+    margin-top: 15px;
+    padding-top: 15px;
+    border-top: 1px dashed var(--border-color);
+    animation: slideUpFade 0.3s ease-out forwards;
+}
+
+.object-desc { font-size: 0.95rem; color: var(--text-muted); line-height: 1.5; margin-bottom: 10px; }
+.object-price {
+    display: inline-block;
+    background-color: var(--bg-color);
+    padding: 6px 12px;
+    border-radius: 8px;
+    font-size: 0.9rem;
+    color: var(--text-color);
+}
+
+.card-footer {
+    display: flex;
+    justify-content: flex-end;
+    padding: 15px 20px;
     border-top: 1px solid var(--border-color);
-    padding-top: 25px;
+    background-color: var(--bg-color);
 }
 
-/* ==========================================
-   7. ACCESIBILITATE (:focus-visible)
-   ================================---------- */
-button:focus-visible,
-input:focus-visible,
-select:focus-visible,
-a:focus-visible {
-    outline: 3px solid var(--accent-color);
-    outline-offset: 3px;
+/* 6. BUTOANE & CHECKBOX */
+.checkbox-container { display: flex; align-items: center; cursor: pointer; }
+.checkbox-container input {
+    width: 22px;
+    height: 22px;
+    accent-color: var(--accent-color);
+    cursor: pointer;
+    transition: transform 0.2s;
+}
+.checkbox-container input:hover { transform: scale(1.15); }
+
+.btn-danger {
+    background: transparent;
+    border: 2px solid var(--danger-color);
+    color: var(--danger-color);
+    border-radius: 10px;
+    padding: 8px 16px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+.btn-danger:hover {
+    background: var(--danger-color);
+    color: #ffffff;
+    transform: scale(1.05);
 }
 
-/* ==========================================
-   8. DESIGN RESPONSIVE
-   ================================---------- */
-@media (max-width: 700px) {
-    .container {
-        grid-template-columns: 1fr;
-    }
-    
-    body {
-        padding: 15px;
-    }
-}
+/* 7. STATE GOL & RESPONSIVITATE */
+.empty-state { text-align: center; padding: 60px 20px; color: var(--text-muted); }
+.empty-state h2 { font-size: 2rem; color: var(--text-color); margin-bottom: 10px; }
 
-html {
-    scroll-behavior: smooth;
+@media (max-width: 768px) {
+    .theme-toggle { position: relative; display: block; margin: 0 auto 20px auto; right: 0; }
+    .ads-grid { grid-template-columns: 1fr; }
 }
-
-.navbar {
-    position: sticky;
-    top: 0;
-    z-index: 1000;
+.search-container {
+    margin-top: 25px;
+    display: flex;
+    justify-content: center;
+    padding: 0 15px;
+}
+.search-input {
+    width: 100%;
+    max-width: 600px;
+    padding: 14px 24px;
+    font-size: 1.05rem;
+    border: 2px solid var(--border-color);
+    border-radius: 40px;
     background-color: var(--card-bg);
-    border-bottom: 1px solid var(--border-color);
-    padding: 12px 20px;
+    color: var(--text-color);
     box-shadow: var(--shadow-soft);
-    margin-bottom: 30px;
+    transition: all 0.3s ease;
+}
+.search-input:focus {
+    outline: none;
+    border-color: var(--accent-color);
+    box-shadow: 0 0 0 5px rgba(98, 70, 234, 0.2);
 }
 
-.nav-container {
-    max-width: 1200px;
-    margin: 0 auto;
+/* ==========================================
+   9. PAGINA DE DETALII
+   ================================---------- */
+.product-details-container {
+    animation: slideUpFade 0.4s ease-out;
+}
+.btn-back {
+    background: transparent;
+    border: none;
+    color: var(--text-muted);
+    font-size: 1.1rem;
+    font-weight: 700;
+    cursor: pointer;
+    margin-bottom: 20px;
+    display: inline-block;
+    transition: transform 0.2s, color 0.2s;
+}
+.btn-back:hover {
+    transform: translateX(-5px);
+    color: var(--accent-color);
+}
+
+.details-card {
+    background-color: var(--card-bg);
+    border-radius: 20px;
+    border: 1px solid var(--border-color);
+    overflow: hidden;
+    box-shadow: var(--shadow-hover);
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0;
+}
+.details-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    min-height: 450px;
+}
+.details-info {
+    padding: 40px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+.details-info h2 { font-size: 2.2rem; line-height: 1.2; margin-bottom: 5px; }
+
+.details-section h3 {
+    font-size: 1.1rem;
+    color: var(--text-color);
+    margin-bottom: 6px;
+    font-weight: 800;
+}
+.details-section p { color: var(--text-muted); font-size: 1.05rem; }
+.price-tag { font-weight: 800; font-size: 1.3rem !important; color: var(--accent-color) !important; }
+
+.status-banner {
+    margin-top: 10px;
+    padding: 15px;
+    border-radius: 12px;
+    font-weight: 700;
+    text-align: center;
+}
+.status-active { background-color: var(--badge-donatie-bg); color: var(--badge-donatie-color); }
+.status-done { background-color: var(--border-color); color: var(--text-muted); text-decoration: line-through; }
+
+.title-price-group p { font-weight: 700; color: var(--accent-color); font-size: 0.95rem; margin-top: 3px; }
+
+@media (max-width: 800px) {
+    .details-card { grid-template-columns: 1fr; }
+    .details-info { padding: 25px; }
+    .details-image { min-height: 250px; height: 250px; }
+}
+.main-layout {
+    display: grid;
+    grid-template-columns: 1fr 300px;
+    gap: 30px;
+    align-items: start;
+}
+.sidebar-cos {
+    position: sticky;
+    top: 20px;
+}
+.cos-container {
+    background-color: var(--card-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 16px;
+    padding: 20px;
+    box-shadow: var(--shadow-soft);
+}
+.cos-container h3 { margin-bottom: 15px; font-size: 1.2rem; }
+.cos-gol { color: var(--text-muted); font-size: 0.9rem; }
+.cos-list { list-style: none; margin-bottom: 15px; max-height: 250px; overflow-y: auto; }
+.cos-item {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    padding: 8px 0;
+    border-bottom: 1px solid var(--border-color);
+    font-size: 0.9rem;
 }
-
-.nav-logo {
-    font-weight: 700;
-    font-size: 1.1rem;
-    color: var(--accent-color);
-}
-
-.nav-links {
+.cos-pret { font-weight: 700; color: var(--accent-color); }
+.btn-scoate { background: none; border: none; color: var(--danger-color); cursor: pointer; font-weight: bold; }
+.cos-total {
     display: flex;
-    gap: 20px;
+    justify-content: space-between;
+    padding-top: 10px;
+    border-top: 2px solid var(--border-color);
+    font-size: 1.1rem;
 }
-
-.nav-links a {
-    text-decoration: none;
+.card-actions-row {
+    display: flex;
+    gap: 10px;
+    margin-top: 15px;
+}
+.btn-adauga-cos, .btn-negociaza, .btn-adauga-cos-mare {
+    background-color: var(--accent-color);
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    padding: 8px 12px;
+    font-weight: 700;
+    cursor: pointer;
+    font-size: 0.85rem;
+    transition: background 0.2s;
+}
+.btn-adauga-cos:hover, .btn-negociaza:hover, .btn-adauga-cos-mare:hover {
+    background-color: var(--accent-hover);
+}
+.btn-adauga-cos-mare { width: 100%; padding: 12px; font-size: 1rem; margin-top: 10px; }
+.negociere-box { margin-top: 12px; }
+.negociere-input-group, .detalii-negociere {
+    display: flex;
+    gap: 8px;
+    margin-top: 8px;
+}
+.negociere-input-group input, .detalii-negociere input {
+    padding: 6px 10px;
+    border: 1px solid var(--border-color);
+    border-radius: 6px;
+    background: var(--bg-color);
     color: var(--text-color);
-    font-size: 0.95rem;
-    font-weight: 600;
-    transition: color 0.2s ease;
+    width: 100%;
+}
+.succes-msg { color: #10b981; font-size: 0.85rem; font-weight: 700; align-self: center; }
+
+@media (max-width: 900px) {
+    .main-layout { grid-template-columns: 1fr; }
+    .sidebar-cos { position: relative; top: 0; }
+}
+.top-right-cart {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    background: var(--card-bg);
+    border: 1px solid var(--border-color);
+    padding: 8px 16px;
+    border-radius: 30px;
+    cursor: pointer;
+    box-shadow: var(--shadow-soft);
+    font-size: 0.9rem;
+    z-index: 100;
+}
+.cart-widget-header { font-weight: 700; color: var(--text-color); }
+.top-right-cart:hover .cart-dropdown { display: block; }
+.cart-dropdown {
+    display: none;
+    position: absolute;
+    right: 0;
+    top: 115%;
+    width: 250px;
+    background: var(--card-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+    padding: 12px;
+    box-shadow: var(--shadow-hover);
+}
+.cart-drop-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 0.85rem;
+    padding: 6px 0;
+    border-bottom: 1px solid var(--border-color);
+}
+.cart-drop-item button { background: none; border: none; color: var(--danger-color); cursor: pointer; font-weight: bold; }
+
+/* Footer subtil pentru mod luminos/întunecat */
+.app-footer-subtle {
+    text-align: center;
+    margin-top: 60px;
+    padding: 20px;
+}
+.theme-toggle-subtle {
+    background: transparent;
+    border: 1px solid var(--border-color);
+    color: var(--text-muted);
+    padding: 6px 14px;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+.theme-toggle-subtle:hover {
+    border-color: var(--accent-color);
+    color: var(--text-color);
 }
 
-.nav-links a:hover {
-    color: var(--accent-color);
+/* Buton în loc de etichetă în colțul stânga sus pe card */
+.badge-btn {
+    position: absolute;
+    top: 15px;
+    left: 15px;
+    background-color: var(--accent-color);
+    color: #fff;
+    border: none;
+    padding: 6px 14px;
+    border-radius: 20px;
+    font-size: 0.75rem;
+    font-weight: 800;
+    cursor: pointer;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+    text-transform: uppercase;
+    transition: background 0.2s;
 }
+.badge-btn:hover { background-color: var(--accent-hover); }
+
+/* Detalii produs cu imagine normală și panou licitare */
+.details-card-normal {
+    background-color: var(--card-bg);
+    border-radius: 20px;
+    border: 1px solid var(--border-color);
+    overflow: hidden;
+    box-shadow: var(--shadow-hover);
+    display: grid;
+    grid-template-columns: 1.2fr 1fr;
+}
+.details-left-pane { padding: 30px; display: flex; flex-direction: column; gap: 20px; }
+.details-image-normal {
+    width: 100%;
+    max-height: 320px;
+    object-fit: cover;
+    border-radius: 12px;
+}
+.details-right-pane-licitare {
+    background-color: var(--bg-color);
+    border-left: 1px solid var(--border-color);
+    padding: 30px;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+.licitare-sub { color: var(--text-muted); font-size: 0.9rem; }
+.propunere-pret-box { display: flex; gap: 10px; }
+.propunere-pret-box input {
+    flex: 1;
+    padding: 10px;
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    background: var(--card-bg);
+    color: var(--text-color);
+}
+.propunere-pret-box button {
+    background: var(--accent-color);
+    color: #fff;
+    border: none;
+    padding: 0 15px;
+    border-radius: 8px;
+    font-weight: bold;
+    cursor: pointer;
+}
+.alerta-oferta-buna {
+    background-color: #fee2e2;
+    color: #991b1b;
+    padding: 10px;
+    border-radius: 8px;
+    font-size: 0.85rem;
+    font-weight: 700;
+    border: 1px solid #fecaca;
+}
+.lista-oferte { margin-top: 10px; }
+.lista-oferte h4 { font-size: 0.95rem; margin-bottom: 8px; }
+.lista-oferte ul { list-style: none; max-height: 200px; overflow-y: auto; display: flex; flex-direction: column; gap: 8px; }
+.lista-oferte li {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: var(--card-bg);
+    padding: 8px 12px;
+    border-radius: 8px;
+    border: 1px solid var(--border-color);
+    font-size: 0.9rem;
+}
+.oferta-top { border-color: var(--accent-color) !important; background-color: rgba(98, 70, 234, 0.05); }
+.btn-alege-pret {
+    background: #10b981;
+    color: white;
+    border: none;
+    padding: 4px 8px;
+    border-radius: 6px;
+    font-size: 0.75rem;
+    font-weight: bold;
+    cursor: pointer;
+}
+.fara-oferte { color: var(--text-muted); font-size: 0.85rem; font-style: italic; }
+
+@media (max-width: 900px) {
+    .details-card-normal { grid-template-columns: 1fr; }
+    .top-right-cart { position: relative; top: 0; right: 0; margin-bottom: 15px; display: inline-block; }
+}
+.top-navigation-bar {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 20px;
+    flex-wrap: wrap;
+}
+.nav-pill {
+    background: var(--card-bg);
+    border: 1px solid var(--border-color);
+    color: var(--text-color);
+    padding: 8px 18px;
+    border-radius: 20px;
+    font-weight: 700;
+    cursor: pointer;
+    box-shadow: var(--shadow-soft);
+    transition: all 0.2s;
+}
+.nav-pill:hover { border-color: var(--accent-color); }
+.active-pill {
+    background: var(--accent-color);
+    color: #fff;
+    border-color: var(--accent-color);
+}
+
+/* Buton inimioară pe imaginea cardului */
+.fav-icon-btn {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    background: rgba(0, 0, 0, 0.5);
+    border: none;
+    color: #fff;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    font-size: 1.2rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform 0.2s, background 0.2s;
+}
+.fav-icon-btn:hover { transform: scale(1.1); background: rgba(0, 0, 0, 0.8); }
+.fav-icon-btn.is-fav { color: #f43f5e; background: #fff; }
+
+/* Buton favorite în pagina de detalii */
+.details-top-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+}
+.btn-fav-details {
+    background: var(--card-bg);
+    border: 1px solid var(--border-color);
+    color: var(--text-color);
+    padding: 8px 16px;
+    border-radius: 8px;
+    font-weight: 700;
+    cursor: pointer;
+}
+.btn-fav-details.is-fav { color: #f43f5e; border-color: #f43f5e; }
