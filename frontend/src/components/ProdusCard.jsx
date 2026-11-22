@@ -1,56 +1,149 @@
-export default function ProdusCard({ produs, onToggle, onDelete, onSelect, isFavorite, onToggleFavorite }) {
+import { Link } from "react-router-dom";
+import {
+  ETICHETE_LABEL,
+  calculeazaImpactEco,
+  formatTimpRamas,
+} from "../constants.js";
+import styles from "./ProdusCard.module.css";
+
+export default function ProdusCard({
+  produs,
+  onToggle,
+  onDelete,
+  isFavorite,
+  onToggleFavorite,
+  onAdaugaInCos,
+  inCos,
+  inCompara,
+  onToggleCompara,
+  acum,
+}) {
+  const etichetaKey = (produs.eticheta ?? "vanzare").toLowerCase();
+  const eco = calculeazaImpactEco(produs);
+  const timpRezervare = formatTimpRamas(produs.rezervare?.expiraLa, acum);
+  const esteRezervat = Boolean(timpRezervare) && !produs.gata;
+
   return (
-    <div className={produs.gata ? "object-card done" : "object-card"}>
-      <div className="card-image-wrapper" onClick={onSelect}>
-        <img src={produs.imagine} alt={produs.titlu} className="card-image" />
-        
-        <button className="badge-btn" onClick={(e) => { e.stopPropagation(); onSelect(); }}>
-          {produs.eticheta}
-        </button>
+    <li
+      className={produs.gata ? `${styles.card} ${styles.done}` : styles.card}
+      data-testid="item"
+      data-id={produs.id}
+    >
+      <Link to={`/produse/${produs.id}`} className={styles.imageBox}>
+        {produs.imagine ? (
+          <img src={produs.imagine} alt={produs.titlu} className={styles.image} />
+        ) : (
+          <div className={styles.imagePlaceholder}>Fără imagine</div>
+        )}
+        <span className={`badge badge-${etichetaKey} ${styles.imageBadge}`}>
+          {ETICHETE_LABEL[produs.eticheta] ?? produs.eticheta}
+        </span>
+        {esteRezervat && (
+          <span className={styles.reservedBadge}>⏳ {timpRezervare}</span>
+        )}
+      </Link>
 
-        {/* Buton de Favorite pe imagine */}
-        <button 
-          className={`fav-icon-btn ${isFavorite ? 'is-fav' : ''}`} 
-          onClick={(e) => onToggleFavorite(produs.id, e)}
-          title="Adaugă la favorite"
-        >
-          {isFavorite ? "♥" : "♡"}
-        </button>
-      </div>
+      <div className={styles.content}>
+        <div className={styles.topRow}>
+          <div className={styles.titleBlock}>
+            <Link
+              to={`/produse/${produs.id}`}
+              className={styles.title}
+              data-testid="item-link"
+            >
+              {produs.titlu}
+            </Link>
 
-      <div className="card-body">
-        <div className="card-header-compact">
-          <div className="title-price-group" onClick={onSelect} style={{cursor: 'pointer'}}>
-            <h3 className="object-title">{produs.titlu}</h3>
-            <p className="object-price-small">Preț: {produs.pret}</p>
+            <div className={styles.metaRow}>
+              <span className={styles.statusPill}>
+                {produs.gata
+                  ? "Indisponibil"
+                  : esteRezervat
+                    ? "Rezervat 24h"
+                    : "Disponibil"}
+              </span>
+              <span className={styles.ecoPill} title="Emisii CO₂ economisite prin reutilizare">
+                🌱 −{eco.co2Kg} kg CO₂
+              </span>
+              {produs.zona && (
+                <span className={styles.location}>📍 {produs.zona}</span>
+              )}
+            </div>
           </div>
-          
-          <label className="checkbox-container" title="Marchează disponibilitatea">
-            <input 
-              type="checkbox" 
-              checked={produs.gata} 
-              onChange={() => onToggle(produs.id)}
-            />
-            <span className="checkmark"></span>
-          </label>
+
+          <div className={styles.price}>
+            {produs.pret ?? (produs.eticheta === "Donatie" ? "Gratuit" : "-")}
+          </div>
         </div>
 
-        <div className="card-actions-row">
-          <button className="btn-expand" onClick={onSelect}>
-            ▼ Vezi detalii și cumpără
-          </button>
+        {produs.descriere && (
+          <p className={styles.desc}>{produs.descriere}</p>
+        )}
+
+        <div className={styles.bottomRow}>
+          <label className={styles.toggleLabel}>
+            <input
+              type="checkbox"
+              checked={Boolean(produs.gata)}
+              onChange={() => onToggle(produs.id)}
+              aria-label={`Marchează ${produs.titlu}`}
+              data-testid="item-toggle"
+            />
+            <span>{produs.gata ? "Finalizat" : "Marchează indisponibil"}</span>
+          </label>
+
+          <div className={styles.actions}>
+            {!produs.gata && (
+              <button
+                type="button"
+                className={inCos ? styles.inCartBtn : styles.cartBtn}
+                onClick={() => onAdaugaInCos(produs)}
+              >
+                {inCos ? "+ Încă unul în coș" : "+ Adaugă în coș"}
+              </button>
+            )}
+
+            {onToggleCompara && (
+              <button
+                type="button"
+                className={
+                  inCompara
+                    ? `${styles.compareBtn} ${styles.compareActive}`
+                    : styles.compareBtn
+                }
+                onClick={() => onToggleCompara(produs)}
+                title="Compară cu alte produse"
+              >
+                ⇄ {inCompara ? "În comparație" : "Compară"}
+              </button>
+            )}
+
+            <button
+              type="button"
+              className={
+                isFavorite
+                  ? `${styles.heartBtn} ${styles.heartActive}`
+                  : styles.heartBtn
+              }
+              onClick={(e) => onToggleFavorite(produs.id, e)}
+              aria-label={isFavorite ? "Scoate de la favorite" : "Adaugă la favorite"}
+              title={isFavorite ? "La favorite" : "Salvează la favorite"}
+            >
+              {isFavorite ? "♥" : "♡"}
+            </button>
+
+            <button
+              type="button"
+              className="btn-danger"
+              onClick={() => onDelete(produs.id)}
+              aria-label={`Șterge ${produs.titlu}`}
+              data-testid="item-delete"
+            >
+              Șterge
+            </button>
+          </div>
         </div>
       </div>
-      
-      <div className="card-footer">
-        <button 
-          className="btn-danger" 
-          onClick={() => onDelete(produs.id)}
-          aria-label={`Șterge ${produs.titlu}`}
-        >
-          🗑️ Șterge
-        </button>
-      </div>
-    </div>
+    </li>
   );
 }

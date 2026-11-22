@@ -1,0 +1,108 @@
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  flex: 1;
+}
+
+.fields {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.input {
+  flex: 1;
+  min-width: 210px;
+  padding: 11px 14px;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  font: inherit;
+  font-size: 0.95rem;
+  background: var(--surface-alt);
+  color: var(--text);
+}
+
+.input[aria-invalid="true"] {
+  border-color: var(--danger);
+}
+
+.select {
+  padding: 11px 12px;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  font: inherit;
+  font-size: 0.92rem;
+  background: var(--surface-alt);
+  color: var(--text);
+}
+
+.priceInput {
+  width: 118px;
+  padding: 11px 12px;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  font: inherit;
+  font-size: 0.92rem;
+  background: var(--surface-alt);
+  color: var(--text);
+}
+
+.extraToggle {
+  border: 1px dashed var(--border);
+  background: transparent;
+  color: var(--muted);
+  border-radius: 10px;
+  padding: 10px 12px;
+  font: inherit;
+  font-size: 0.85rem;
+  font-weight: 600;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: border-color 0.16s ease, color 0.16s ease;
+}
+
+.extraToggle:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+.submitBtn {
+  white-space: nowrap;
+}
+
+.extraGrid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 10px;
+  padding-top: 4px;
+  animation: fadeDown 0.2s ease both;
+}
+
+.extraInput {
+  padding: 10px 12px;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  font: inherit;
+  font-size: 0.88rem;
+  background: var(--surface-alt);
+  color: var(--text);
+}
+
+@keyframes fadeDown {
+  from {
+    opacity: 0;
+    transform: translateY(-4px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (max-width: 680px) {
+  .extraGrid {
+    grid-template-columns: 1fr;
+  }
+}

@@ -1,0 +1,162 @@
+* {
+  box-sizing: border-box;
+}
+
+:root {
+  --bg: #f6f3ee;
+  --card: #ffffff;
+  --surface-alt: #f2ede6;
+  --nav-bg: #1c1917;
+  --text: #1c1917;
+  --muted: #6b635b;
+  --accent: #d95d39;
+  --accent-dark: #b84727;
+  --accent-soft: #fdf0eb;
+  --sage: #2e7d5b;
+  --sage-soft: #e8f5ef;
+  --amber: #c97a16;
+  --border: #e6dfd5;
+  --danger: #c83232;
+  --error-bg: #fef2f2;
+  --error-border: #fecaca;
+  --shadow: 0 2px 10px rgba(28, 25, 23, 0.05);
+  --shadow-hover: 0 14px 30px rgba(28, 25, 23, 0.11);
+  --radius: 16px;
+}
+
+:root[data-theme="dark"] {
+  --bg: #131110;
+  --card: #1d1a18;
+  --surface-alt: #26221f;
+  --nav-bg: #0d0c0b;
+  --text: #f5f0e8;
+  --muted: #a69d93;
+  --accent: #ef7452;
+  --accent-dark: #d95d39;
+  --accent-soft: #2e1d18;
+  --sage: #4eb889;
+  --sage-soft: #162b22;
+  --amber: #e6a040;
+  --border: #2f2a26;
+  --danger: #f06565;
+  --error-bg: #2b1515;
+  --error-border: #5c2626;
+  --shadow: 0 2px 10px rgba(0, 0, 0, 0.25);
+  --shadow-hover: 0 16px 32px rgba(0, 0, 0, 0.45);
+}
+
+body {
+  margin: 0;
+  font-family: "Plus Jakarta Sans", "Inter", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.5;
+}
+
+a {
+  color: var(--text);
+}
+
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+.panel {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 22px;
+  box-shadow: var(--shadow);
+}
+
+.panel h2 {
+  margin-top: 0;
+  font-size: 1.25rem;
+  letter-spacing: -0.02em;
+}
+
+.info {
+  color: var(--muted);
+}
+
+.empty {
+  color: var(--muted);
+  font-style: italic;
+  text-align: center;
+  padding: 36px 16px;
+}
+
+.error {
+  color: var(--danger);
+  background: var(--error-bg);
+  border: 1px solid var(--error-border);
+  border-radius: 10px;
+  padding: 10px 14px;
+  font-size: 0.9rem;
+}
+
+.btn {
+  padding: 11px 20px;
+  border: none;
+  border-radius: 10px;
+  background: var(--accent);
+  color: #ffffff;
+  font: inherit;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.18s ease, transform 0.15s ease;
+}
+
+.btn:hover {
+  background: var(--accent-dark);
+  transform: translateY(-1px);
+}
+
+.btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.btn-danger {
+  border: 1px solid var(--border);
+  background: transparent;
+  color: var(--muted);
+  border-radius: 8px;
+  padding: 6px 11px;
+  font: inherit;
+  font-size: 0.82rem;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.btn-danger:hover {
+  border-color: var(--danger);
+  background: var(--danger);
+  color: #ffffff;
+}
+
+.badge {
+  display: inline-block;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  padding: 4px 10px;
+  border-radius: 999px;
+  color: #ffffff;
+  background: var(--accent);
+}
+
+.badge-donatie {
+  background: var(--sage);
+}
+
+.badge-schimb {
+  background: var(--amber);
+}
+
+.badge-vanzare {
+  background: var(--accent);
+}
